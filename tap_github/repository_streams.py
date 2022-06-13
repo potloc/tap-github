@@ -1262,7 +1262,6 @@ class PullRequestCommits(GitHubRestStream):
         th.Property("repo", th.StringType),
         th.Property("repo_id", th.IntegerType),
         th.Property("pull_number", th.IntegerType),
-
         # Rest
         th.Property("url", th.StringType),
         th.Property("sha", th.StringType),
@@ -1598,7 +1597,7 @@ class StargazersGraphqlStream(GitHubGraphqlStream):
         # Graphql id is equivalent to REST node_id. To keep the tap consistent, we rename "id" to "node_id".
         return """
           query repositoryStargazers($repo: String! $org: String! $nextPageCursor_0: String) {
-            repository(name: $repo owner: $org) { 
+            repository(name: $repo owner: $org) {
               stargazers(first: 100 orderBy: {field: STARRED_AT direction: DESC} after: $nextPageCursor_0) {
                 pageInfo {
                   hasNextPage_0: hasNextPage
